@@ -36,14 +36,14 @@ public class NoteController {
     private final NoteService noteService;
     private final NoteMapper noteMapper;
 
-    @GetMapping("/list")
+    @GetMapping("/")
     @Operation(summary = "Get all notes")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "List notes",
                     content = { @Content(mediaType = "application/json",
                             schema = @Schema(implementation = Note.class)) })
     })
-    public ResponseEntity<List<NoteResponse>> noteList() {
+    public ResponseEntity<List<NoteResponse>> notesList() {
         return ResponseEntity
             .status(HttpStatus.OK)
             .body(noteMapper.toNoteResponses(noteService.listAll()));
@@ -102,7 +102,7 @@ public class NoteController {
     }
 
     @DeleteMapping("/{id}")
-    @Operation(summary = "Delete note by id")
+    @Operation(summary = "Delete note")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Note deleted"),
             @ApiResponse(responseCode = "404", description = "Note not found",
